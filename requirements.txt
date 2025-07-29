@@ -2,3 +2,4 @@ pandas
 psycopg2-binary
 apache-airflow-providers-postgres
 apache-airflow-providers-amazon
+python-dotenv
