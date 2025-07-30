@@ -12,17 +12,11 @@ deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT")
 api_version = os.getenv("AZURE_OPENAI_API_VERSION")
 subscription_key = os.getenv("AZURE_OPENAI_KEY")
 
-print(f"Using Azure OpenAI endpoint: {endpoint}, model: {model_name}, deployment: {deployment}, api_version: {api_version}")
-
 @task
-def parse_file_with_openai(file_path: str, prompt: str) -> str:
+def parse_file_with_openai(file_content: str, prompt: str) -> str:
     """
     Reads the file at file_path, sends its content to OpenAI with the given prompt, and returns the response.
     """
-    if not os.path.exists(file_path):
-        raise FileNotFoundError(f"File not found: {file_path}")
-    with open(file_path, "r") as f:
-        file_content = f.read()
     if not subscription_key:
         raise ValueError("OpenAI API key not set.")
     
