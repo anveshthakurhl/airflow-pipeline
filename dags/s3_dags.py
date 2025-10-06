@@ -90,18 +90,14 @@ def load_csv_to_db(
     """,
 )
 def s3_download_all_workflow():
-
     cleanup_task = clean_local_download_directory(base_download_dir=LOCAL_BASE_DOWNLOAD_DIR)
-
     s3_keys_to_download = list_s3_files(
         aws_conn_id=AWS_CONN_ID
     )
-
     downloaded_file_info = download_single_s3_file.partial(
         base_download_dir=LOCAL_BASE_DOWNLOAD_DIR,
         aws_conn_id=AWS_CONN_ID,
     ).expand(s3_key=s3_keys_to_download)
-
     load_to_db_task = load_csv_to_db.partial(
         table_name=POSTGRES_TABLE_NAME, postgres_conn_id="postgres_default"
     ).expand(s3_key=s3_keys_to_download, local_file_path=downloaded_file_info)

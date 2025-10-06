@@ -5,3 +5,4 @@ apache-airflow-providers-amazon
 python-dotenv
 presidio_analyzer
 presidio_anonymizer
+openai
